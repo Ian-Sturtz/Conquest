@@ -16,7 +16,6 @@ namespace Alteruna
 		[SerializeField] private Button LeaveButton;
 
 		public bool ShowUserCount = false;
-		// manual refresh can be done by calling Multiplayer.RefreshRoomList();
 		public bool AutomaticallyRefresh = true;
 		public float RefreshInterval = 5.0f;
 		
