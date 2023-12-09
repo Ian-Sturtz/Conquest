@@ -30,14 +30,17 @@ namespace Alteruna
 		public bool JoinRoom(string roomName, ushort password = 0)
 		{
 			roomName = roomName.ToLower();
+
 			if (Multiplayer != null && Multiplayer.IsConnected)
 			{
+				// Checks each room in multiplayer to find correct room
 				foreach (var room in Multiplayer.AvailableRooms)
 				{
 					if (room.Name.ToLower() == roomName)
 					{
 						room.Join(password);
-						return true;
+						Debug.Log("Connected to room");
+                        return true;
 					}
 				}
 			}
@@ -47,22 +50,23 @@ namespace Alteruna
 
 		private void Connected(Multiplayer multiplayer, Endpoint endpoint)
 		{
-
-			// if already connected to room
+			// If already connected to room, update interface and end func
 			if (multiplayer.InRoom)
 			{
 				JoinedRoom(multiplayer, multiplayer.CurrentRoom, multiplayer.Me);
-				return;
+                return;
 			}
 
 			StartButton.interactable = true;
 			LeaveButton.interactable = false;
 
+			// Update interface title
 			if (TitleText != null)
 			{
 				TitleText.text = "Rooms";
 			}
-		}
+            Debug.Log("Connection established");
+        }
 
 		private void Disconnected(Multiplayer multiplayer, Endpoint endPoint)
 		{
@@ -74,7 +78,8 @@ namespace Alteruna
 			{
 				TitleText.text = "Reconnecting";
 			}
-		}
+            Debug.Log("Disconnected, attempting to reconnect");
+        }
 
 		private void UpdateList(Multiplayer multiplayer)
 		{
@@ -87,6 +92,7 @@ namespace Alteruna
 				Room room = multiplayer.AvailableRooms[i];
 				RoomObject entry;
 
+				// Sets entry to room object, creating a new one if necessary
 				if (_roomObjects.Count > i)
 				{
 					if (room.Local != _roomObjects[i].Lan)
@@ -121,12 +127,14 @@ namespace Alteruna
 					continue;
 				}
 
+				// Display number of players in room
 				string newName = room.Name;
 				if (ShowUserCount)
 				{
 					newName += " (" + room.GetUserCount() + "/" + room.MaxUsers + ")";
 				}
 				
+				// Update room name
 				if (entry.GameObject.name != newName)
 				{
 					entry.GameObject.name = newName;
@@ -134,6 +142,7 @@ namespace Alteruna
 				}
 				entry.GameObject.SetActive(true);
 
+				// Update join room button
 				if (room.ID == _roomI)
 				{
 					entry.Button.interactable = false;
@@ -147,7 +156,9 @@ namespace Alteruna
 						UpdateList(multiplayer);
 					});
 				}
-			}
+
+                Debug.Log("Updated list");
+            }
 		}
 
 		private void RemoveExtraRooms(Multiplayer multiplayer)
@@ -178,8 +189,9 @@ namespace Alteruna
 			if (TitleText != null)
 			{
 				TitleText.text = "In Room " + room.Name;
-			}
-		}
+            }
+            Debug.Log("Connected to room " + room.Name);
+        }
 
 		private void LeftRoom(Multiplayer multiplayer)
 		{
@@ -192,7 +204,8 @@ namespace Alteruna
 			{
 				TitleText.text = "Rooms";
 			}
-		}
+            Debug.Log("Left room");
+        }
 
 		private void FixedUpdate()
 		{
@@ -202,6 +215,7 @@ namespace Alteruna
 			}
 			else if (Multiplayer.IsConnected)
 			{
+				// return if not yet time to refresh
 				if (!AutomaticallyRefresh || (_refreshTime += Time.fixedDeltaTime) < RefreshInterval) return;
 				_refreshTime -= RefreshInterval;
 
