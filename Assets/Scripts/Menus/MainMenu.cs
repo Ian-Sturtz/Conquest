@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Lobby");
     }
 
+    public void ViewLore()
+    {
+        SceneManager.LoadScene("Story");
+    }
+
     public void QuitGame()
     {
         Debug.Log("Closing game");
