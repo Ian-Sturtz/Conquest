@@ -48,7 +48,7 @@ namespace Alteruna
 		private void Connected(Multiplayer multiplayer, Endpoint endpoint)
 		{
 
-			// if already connected to room
+			
 			if (multiplayer.InRoom)
 			{
 				JoinedRoom(multiplayer, multiplayer.CurrentRoom, multiplayer.Me);
@@ -108,11 +108,8 @@ namespace Alteruna
 				}
 				
 				if (
-					// Hide private rooms.
 					room.InviteOnly && room.ID != _roomI ||
-					// Hide locked rooms.
 					room.IsLocked ||
-					// Hide full rooms.
 					room.GetUserCount() > room.MaxUsers
 					)
 				{
@@ -257,7 +254,7 @@ namespace Alteruna
 			if (Multiplayer == null)
 			{
 
-				Debug.LogError("Unable to find a active object of type Multiplayer.");
+				Debug.LogError("Unable to find Multiplayer Connection.");
 				if (TitleText != null) TitleText.text = "Missing Multiplayer Component";
 				enabled = false;
 			}
@@ -271,7 +268,6 @@ namespace Alteruna
 
 				StartButton.onClick.AddListener(() =>
 				{
-					// for more control, use Multiplayer.CreateRoom
 					Multiplayer.JoinOnDemandRoom();
 					_refreshTime = RefreshInterval;
 				});
@@ -297,7 +293,6 @@ namespace Alteruna
 					}
 				}
 
-				// if already connected
 				if (Multiplayer.IsConnected)
 				{
 					Connected(Multiplayer, null);
