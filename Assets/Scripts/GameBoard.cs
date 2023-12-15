@@ -91,6 +91,9 @@ public class GameBoard : MonoBehaviour
                     {
                         Debug.Log("The Navy Won!");
                         gameWon = true;
+
+                        // Update UI
+                        FindObjectOfType<BoardUI>().GameWon(true);
                     }
                 }
             }
@@ -105,6 +108,9 @@ public class GameBoard : MonoBehaviour
                     {
                         Debug.Log("The Pirates Won!");
                         gameWon = true;
+
+                        // Update UI
+                        FindObjectOfType<BoardUI>().GameWon(false);
                     }
                 }
             }
@@ -179,7 +185,12 @@ public class GameBoard : MonoBehaviour
                         // Capture that piece
                         Piece capturedPiece = tiles[moveCoordinates.x, moveCoordinates.y].GetComponent<Square>().currentPiece;
                         if (capturedPiece.type == PieceType.Ore)
+                        {
                             currentSquare.currentPiece.hasOre = true;
+
+                            // Update UI
+                            FindObjectOfType<BoardUI>().UpdateGoal(navyTurn, true);
+                        }
 
                         // Captured the orebearer, need to place the ore back on the board
                         if (capturedPiece.hasOre)
@@ -464,5 +475,8 @@ public class GameBoard : MonoBehaviour
         {
             navyTurn = true;
         }
+
+        // Update UI
+        FindObjectOfType<BoardUI>().UpdateTurn(navyTurn);
     }
 }

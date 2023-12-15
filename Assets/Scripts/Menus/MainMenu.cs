@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
-
     public void PlayLocal()
     {
         SceneManager.LoadScene("Board");
@@ -20,6 +18,11 @@ public class MainMenu : MonoBehaviour
     public void ViewLore()
     {
         SceneManager.LoadScene("Story");
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void QuitGame()

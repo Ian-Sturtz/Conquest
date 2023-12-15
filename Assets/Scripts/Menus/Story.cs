@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Story : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_Text lore;
+    [SerializeField] private TMP_Text lore;
 
     public void NavyClicked()
     {
