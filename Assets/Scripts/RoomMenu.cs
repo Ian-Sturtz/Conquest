@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Alteruna.Trinity;
-
+// used the Alteruna package this included being able to use their format for multiplayer commands which allowed for the building of our multiplayer framework and lobby system.
 namespace Alteruna
 {
 	public class RoomMenu : CommunicationBridge
