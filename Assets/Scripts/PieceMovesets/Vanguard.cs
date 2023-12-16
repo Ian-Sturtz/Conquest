@@ -1,5 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+// Implemented by Ian Sturtz
+
+
 using UnityEngine;
 
 public class Vanguard : Piece

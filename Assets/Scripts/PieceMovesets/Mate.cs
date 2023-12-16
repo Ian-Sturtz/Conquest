@@ -1,3 +1,5 @@
+// Implemented by Ian Sturtz
+
 using UnityEngine;
 
 public class Mate : Piece

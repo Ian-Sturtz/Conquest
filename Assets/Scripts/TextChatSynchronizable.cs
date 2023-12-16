@@ -1,3 +1,5 @@
+// Implemented by Ian Pettersen
+
 using System;
 using System.Collections.Generic;
 using System.Text;
